@@ -7,27 +7,4 @@ app.listen(port, () => {
 
 
 
-/* format response en middleware */
-
-app.get('/', function (req, res) {
-  res.format({
-    'text/plain': function () {
-      res.send('hey');
-    },
-    'text/html' () {
-      res.send('<p>hey</p>')
-    },
-  
-    'application/json' () {
-      res.send({ message: 'hey' })
-    },
-    
-    default() {
-    // log the request and respond with 406
-    res.status(406).send('Not Acceptable')
-    } 
-  })
-});
-
-
 
