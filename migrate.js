@@ -1,0 +1,10 @@
+const connection = require("./models/connection");
+require("./models/task");
+require("./models/user");
+
+connection
+  .sync({
+    alter: true,
+  })
+  .then(() => console.log("Database synced"))
+  .then(() => connection.close());
