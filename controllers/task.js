@@ -1,8 +1,19 @@
 const TaskModel = require("../models/task.js");
+const Papa = require("papaparse");
 
 module.exports = {
   cget: async (req, res, next) => {
-    res.json(await TaskModel.findAll());
+    const items = await TaskModel.findAll();
+    res.format({
+      "text/csv"() {
+        const csv = Papa.unparse(items.map((itemOrm) => itemOrm.dataValues));
+        res.setHeader("Content-Type", "text/csv");
+        res.send(csv);
+      },
+      default() {
+        res.render(items);
+      },
+    });
   },
   post: async (req, res, next) => {
     const newData = req.body;
@@ -12,7 +23,16 @@ module.exports = {
   get: async (req, res, next) => {
     const task = await TaskModel.findByPk(req.params.id);
     if (task) {
-      res.json(task);
+      res.format({
+        "text/csv"() {
+          const csv = Papa.unparse([task.dataValues]);
+          res.setHeader("Content-Type", "text/csv");
+          res.send(csv);
+        },
+        default() {
+          res.json(task);
+        },
+      });
     } else {
       res.sendStatus(404);
     }

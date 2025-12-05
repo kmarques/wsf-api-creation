@@ -1,5 +1,6 @@
 ### Collection GET
 GET http://localhost:3000/tasks
+Accept: text/csv
 
 ### Collection POST
 POST http://localhost:3000/tasks
@@ -10,10 +11,10 @@ Content-Type: application/json
 }
 
 ### Item GET
-GET http://localhost:3000/tasks/xxxxx
+GET http://localhost:3000/tasks/1
 
 ### Item PUT : replace
-PUT http://localhost:3000/tasks/xxxxx
+PUT http://localhost:3000/tasks/1
 Content-Type: application/json
 
 {
@@ -30,7 +31,7 @@ Content-Type: application/json
 }
 
 ### Item PATCH
-PATCH http://localhost:3000/tasks/xxxxx
+PATCH http://localhost:3000/tasks/1
 Content-Type: application/json
 
 {
