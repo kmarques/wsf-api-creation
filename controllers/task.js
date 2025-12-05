@@ -4,35 +4,27 @@ const Papa = require("papaparse");
 module.exports = {
   cget: async (req, res, next) => {
     const items = await TaskModel.findAll();
-    res.format({
-      "text/csv"() {
-        const csv = Papa.unparse(items.map((itemOrm) => itemOrm.dataValues));
-        res.setHeader("Content-Type", "text/csv");
-        res.send(csv);
-      },
-      default() {
-        res.render(items);
-      },
-    });
+    res.render(items);
+    //res.format({
+    //  "text/csv"() {
+    //    const csv = Papa.unparse(items.map((itemOrm) => itemOrm.dataValues));
+    //    res.setHeader("Content-Type", "text/csv");
+    //    res.send(csv);
+    //  },
+    //  default() {
+    //    res.json(items);
+    //  },
+    //});
   },
   post: async (req, res, next) => {
     const newData = req.body;
     const newTask = await TaskModel.create(newData);
-    res.status(201).json(newTask);
+    res.status(201).render(newTask);
   },
   get: async (req, res, next) => {
     const task = await TaskModel.findByPk(req.params.id);
     if (task) {
-      res.format({
-        "text/csv"() {
-          const csv = Papa.unparse([task.dataValues]);
-          res.setHeader("Content-Type", "text/csv");
-          res.send(csv);
-        },
-        default() {
-          res.json(task);
-        },
-      });
+      res.render(task);
     } else {
       res.sendStatus(404);
     }
@@ -45,7 +37,7 @@ module.exports = {
     });
     const newData = req.body;
     const newTask = await TaskModel.create({ id: req.params.id, ...newData });
-    res.status(nbDeleted === 1 ? 200 : 201).json(newTask);
+    res.status(nbDeleted === 1 ? 200 : 201).render(newTask);
   },
   patch: async (req, res, next) => {
     /**
@@ -67,7 +59,7 @@ module.exports = {
     if (nbUpdated === 0) {
       res.sendStatus(404);
     } else {
-      res.json(updatedTask);
+      res.render(updatedTask);
     }
 
     // MySQL
