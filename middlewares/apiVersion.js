@@ -1,0 +1,3 @@
+module.exports = function example(req, res, next) {
+  //...
+};

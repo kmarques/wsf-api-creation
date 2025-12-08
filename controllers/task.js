@@ -1,9 +1,14 @@
 const initTranslation = require("../lib/i18next.js");
+const getAskedApiVersion = require("../lib/versioning.js");
 const TaskModel = require("../models/task.js");
 const Papa = require("papaparse");
 
 module.exports = {
-  cget: async (req, res, next) => {
+  cgetV1: async (req, res, next) => {
+    const items = await TaskModel.findAll();
+    res.render(items);
+  },
+  cgetV2: async (req, res, next) => {
     const trad = initTranslation(req);
     const items = await TaskModel.findAll();
     res.render(
@@ -14,18 +19,25 @@ module.exports = {
         return item;
       })
     );
-    //res.format({
-    //  "text/csv"() {
-    //    const csv = Papa.unparse(items.map((itemOrm) => itemOrm.dataValues));
-    //    res.setHeader("Content-Type", "text/csv");
-    //    res.send(csv);
-    //  },
-    //  default() {
-    //    res.json(items);
-    //  },
-    //});
+  },
+  cget: async (req, res, next) => {
+    const trad = initTranslation(req);
+    const items = await TaskModel.findAll();
+    res.render(
+      items.map((item) => {
+        item.dataValues.completed = trad(
+          item.completed ? "completed" : "not-completed"
+        );
+        return item;
+      })
+    );
   },
   post: async (req, res, next) => {
+    const newData = req.body;
+    const newTask = await TaskModel.create(newData);
+    res.status(201).render(newTask);
+  },
+  postV1: async (req, res, next) => {
     const newData = req.body;
     const newTask = await TaskModel.create(newData);
     res.status(201).render(newTask);

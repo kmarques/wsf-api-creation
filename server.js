@@ -1,11 +1,13 @@
 const express = require("express");
 const example = require("./middlewares/example");
+const exampleWithOptions = require("./middlewares/exampleWithOptions");
 
 const app = express();
 
 app.use(express.json());
 
 app.use(example);
+app.use(exampleWithOptions());
 
 app.use(require("./routes/tasks"));
 app.use(require("./routes/user"));

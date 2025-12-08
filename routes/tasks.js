@@ -5,7 +5,14 @@ const router = new Router();
 
 // Collection GET => list
 // Http Code : 200
-router.get("/tasks", TaskController.cget);
+router.get(
+  "/tasks"
+  // apiVersion({
+  //   v1: TaskController.cgetV1,
+  //   v2: TaskController.cgetV2,
+  //   default: TaskController.cget,
+  // })
+);
 // Collection POST => create
 // Http Code : 201
 router.post("/tasks", TaskController.post);
