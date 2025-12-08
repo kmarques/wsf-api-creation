@@ -1,6 +1,7 @@
 ### Collection GET
 GET http://localhost:3000/tasks
-Accept: text/csv
+Accept: application/json
+Accept-Language: fr;q=0.6;q=0.9,en-US;q=0.8,en;q=0.7,fr-FR;q=0.5
 
 ### Collection POST
 POST http://localhost:3000/tasks

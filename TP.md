@@ -4,5 +4,14 @@
 
 Écrire un middleware express afin de gérer automatiquement le format de sortie à partir de n'importe quelle route avec une fonction unique (ex: res.render)   
 
-[ ] créer le middleware
-[ ] mettre en place la gestion du format XML
+[ ] Créer le middleware
+[ ] Mettre en place la gestion du format XML
+
+## TP2
+
+Ajouter la gestion de la langue dans l'API
+
+[ ] Créer le middleware de traduction
+   [ ] Définir la traduction à partir de l'entête HTTP `Accept-Language`
+   [ ] Définir l'entête `Content-Language` dans la réponse HTTP
+   [ ] Mettre à jour les routes pour utiliser la traduction

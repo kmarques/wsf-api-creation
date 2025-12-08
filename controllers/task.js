@@ -1,10 +1,19 @@
+const initTranslation = require("../lib/i18next.js");
 const TaskModel = require("../models/task.js");
 const Papa = require("papaparse");
 
 module.exports = {
   cget: async (req, res, next) => {
+    const trad = initTranslation(req);
     const items = await TaskModel.findAll();
-    res.render(items);
+    res.render(
+      items.map((item) => {
+        item.dataValues.completed_trad = trad(
+          item.completed ? "completed" : "not-completed"
+        );
+        return item;
+      })
+    );
     //res.format({
     //  "text/csv"() {
     //    const csv = Papa.unparse(items.map((itemOrm) => itemOrm.dataValues));
