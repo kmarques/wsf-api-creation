@@ -6,12 +6,13 @@ const router = new Router();
 // Collection GET => list
 // Http Code : 200
 router.get(
-  "/tasks"
+  "/tasks",
   // apiVersion({
   //   v1: TaskController.cgetV1,
   //   v2: TaskController.cgetV2,
   //   default: TaskController.cget,
   // })
+  TaskController.cget
 );
 // Collection POST => create
 // Http Code : 201

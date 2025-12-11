@@ -23,3 +23,43 @@ Ajouter la gestion du versionning des routes
 [ ] Créer le middleware de versionning   
 [ ] Définir plusieurs versions d'un controlleur   
 [ ] Appliquer le versionning dans les routes   
+
+## TP4
+
+Ajouter la gestion de l'HATEOAS dans l'API   
+
+[ ] Créer le middleware HATEOAS   
+[ ] Définir les liens HATEOAS pour la réponse dans les controlleurs `setHateoas()`   
+[ ] Mettre à jour les routes pour inclure la gestion de l'HATEOAS
+
+```js
+// Example of GET collection
+setHateoas({
+    self: "/tasks?page=1",
+    next: "/tasks?page=2",
+    // ...
+});
+// Example of GET collection
+setHateoas({
+    self: "/tasks?page=1",
+    create: { method: "POST", href: "/tasks" },
+    next: "/tasks?page=2",
+    // ...
+});
+// Example of GET item
+setHateoas({
+    self: "/tasks/{id}",
+    list: "/tasks",
+    update: { method: "PATCH", href: "/tasks/{id}" },
+    delete: { method: "DELETE", href: "/tasks/{id}" },
+    // ...
+});
+// Example of POST item
+setHateoas({
+    self: "/tasks/{id}",
+    list: "/tasks",
+    update: { method: "PATCH", href: "/tasks/{id}" },
+    delete: { method: "DELETE", href: "/tasks/{id}" },
+    // ...
+});
+```
